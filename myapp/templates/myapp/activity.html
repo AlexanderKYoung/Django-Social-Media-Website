@@ -1,0 +1,28 @@
+{% extends "myapp/main.html" %}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+
+<h1>Your Planned Activities</h1>
+<a href="{% url 'make-activity' %}" class="btn btn-outline-success" type="button">Add New</a>
+<br><br>
+{% for activity in activities %}
+<div class="card">
+  <div class="card-header">
+    <a href="{% url 'activity-detail' activity.pk %}" class="article-title" >{{ activity }}</a>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ activity.type }}</h5>
+    <p class="card-text">
+      <ul>
+        <li>Start Time: {{ activity.startTime }}</li>
+        <li>End Time: {{ activity.endTime }}</li>
+        <li>Location: {{ activity.location }}</li>
+      </ul>
+      {{ activity.description }}</p>
+    <a href="#" class="btn btn-primary">Edit</a>
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock content %}

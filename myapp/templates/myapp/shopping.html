@@ -1,0 +1,27 @@
+{% extends "myapp/main.html" %}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+
+<h1>Your Shopping Activity</h1>
+<a href="{% url 'shopping-detail' %}">Shopping Details</a>  
+{% for shopping in shopping_list %}
+<div class="card">
+  <div class="card-header">
+    {{ shopping }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ shopping.item_category }}</h5>
+    <p class="card-text">
+      <ul>
+        <li>Quanity: {{ shopping.quantity }}</li>
+        <li>Price: ${{ shopping.price }}</li>
+        <li>Store: {{ shopping.store }}</li>
+      </ul>
+      {{ shopping.description }}</p>
+  </div>
+</div>
+<br>
+{% endfor %}
+
+{% endblock content %}

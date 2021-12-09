@@ -1,0 +1,32 @@
+{% extends "myapp/main.html" %}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+
+<h1>Your Health</h1>
+  
+{% for health in health_list %}
+<div class="card">
+  <div class="card-header">
+    {{ heatlh }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text">
+      <ul>
+        <li>Doctor: {{ health.doctorName }}</li>
+        <li>Phone Number: {{ health.phoneNum }}</li>
+        <li>Email: {{ health.email }}</li>
+        <li>Address: {{ health.address }}</li>
+      </ul>
+      <h5>{{ health.medicine }}</h5>
+      {{ health.dose }} doses,
+      {{ health.timeToTake }}
+      </p>
+    <a href="#" class="btn btn-primary">Edit</a>
+  </div>
+</div>
+<br>
+{% endfor %}
+  
+{% endblock content %}

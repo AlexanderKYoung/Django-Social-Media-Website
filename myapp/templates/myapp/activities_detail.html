@@ -1,0 +1,51 @@
+{% extends "myapp/main.html" %}
+{% load static %}
+{% block content %}
+
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{% static 'images/user.png' %}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ object.author }}</a>
+        <small class="text-muted">{{ object.startTime|date:"F d, Y" }}</small>
+        {% if object.author == user %}
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        {% endif %}
+
+      </div>
+      <h2 class="article-title">{{ object.name }}</h2>
+      <ul>
+        <li>Start Time: {{ object.startTime }}</li>
+        <li>End Time: {{ object.endTime }}</li>
+        <li>Location: {{ object.location }}</li>
+      </ul>
+      <p class="article-content">{{ object.description }}</p>
+    </div>
+</article>
+
+<hr>
+<br><br>
+<h1>Comments</h1>
+<br>
+{% if not activities.replies.all %}
+  No Replies Yet...<a href="{% url 'reply-create' activities.pk %}">Add One</a>
+{% else %}
+<a href="{% url 'reply-create' activities.pk %}">Add Comment</a>
+<br><br>
+  {% for reply in activities.replies.all %}
+    <strong>
+      {{ reply.author }} -
+      {{ reply.date_added }}
+    </strong>
+    <br>
+    {{ reply.content }}
+    <br>
+    <hr>
+    <br>
+  {% endfor %}
+  <a href="{% url 'reply-create' activities.pk %}">Add Comment</a>
+  <br><br>
+{% endif %}
+<br>
+{% endblock content %}

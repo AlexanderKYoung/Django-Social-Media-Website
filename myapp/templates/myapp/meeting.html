@@ -1,0 +1,33 @@
+{% extends "myapp/main.html" %}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+
+<h1>Your Meetings</h1>
+  
+{% for meeting in meeting_list %}
+<div class="card">
+  <div class="card-header">
+    {{ meeting }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ meeting.name }}</h5>
+    <p class="card-text">
+      <ul>
+        <li>Number of Participants: {{ meeting.numParticipants }} attending</li>
+        
+        Attendee Names:  
+        <ul>  
+            {% for participantNames in meeting.participantNames.all %}
+                <li>{{ participantNames }}</li>
+            {% endfor %}
+        </ul>
+      </ul>
+      </p>
+    <a href="#" class="btn btn-primary">Edit</a>
+  </div>
+</div>
+<br>
+{% endfor %}
+<a href="{% url 'make-meeting' %}" class="btn btn-outline-success" type="button">Add New</a>
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends "myapp/main.html" %}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{% static 'images/user.png' %}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ object.author }}</a>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }} | views {% get_hit_count for post %}</small>
+        {% if object.author == user %}
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        {% endif %}
+
+      </div>
+      <h2 class="article-title">{{ object.title }}</h2>
+      <p class="article-content">{{ object.content }}</p>
+    </div>
+</article>
+<hr>
+<br><br>
+<h1>Comments</h1>
+<br>
+{% if not post.replies.all %}
+  No Replies Yet...<a href="{% url 'reply-create' post.pk %}">Add One</a>
+{% else %}
+<a href="{% url 'reply-create' post.pk %}">Add Comment</a>
+<br><br>
+  {% for reply in post.replies.all %}
+    <strong>
+      {{ reply.author }} -
+      {{ reply.date_added }}
+    </strong>
+    <br>
+    {{ reply.content }}
+    <br>
+    <hr>
+    <br>
+  {% endfor %}
+  <a href="{% url 'reply-create' post.pk %}">Add Comment</a>
+  <br><br>
+{% endif %}
+<br>
+
+{% endblock content %}
