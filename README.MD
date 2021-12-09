@@ -1,6 +1,6 @@
 System requirements: python version 3.9.9, django version 3.2.9
 
-from "CS443 - Project 1" folder, open terminal and enter the following commands:
+from "CS443 - Project 3" folder, open terminal and enter the following commands:
         cd mysite
         pip install django-crispy-forms
         pip install django-hitcount
